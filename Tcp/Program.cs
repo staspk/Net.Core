@@ -1,17 +1,26 @@
-﻿using System.Text;
+﻿using Sqlite;
+using System.Text;
 
 namespace Tcp
 {
     internal class Program
     {
+        const string ApplicationName = "StanislavServer";
+        const string DbFileName = "stanislav_server.sqlite3";
+
+        static readonly string DbPath = Kozubenko.IO.File.GenerateConfigFilePath(ApplicationName, DbFileName);
 
         static void Main(string[] args)
         {
+            List<long> ticks = new List<long>();
+            for(int i = 0; i < 100; i++)
+            {
+                Kozubenko.Utils.Timer.Start();
+                string applicationName = Kozubenko.IO.File.GenerateConfigFilePath(ApplicationName, Kozubenko.Utils.Random.GenerateRandomString());
+                ticks.Add(Kozubenko.Utils.Timer.Stop());
+            }
 
-
-
-
-
+            Console.WriteLine("Average: " + ticks.Average());
 
             //var server = new TcpListener("127.0.0.1", 8080);
             //server.Start();
