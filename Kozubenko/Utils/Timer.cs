@@ -21,20 +21,24 @@ namespace Kozubenko.Utils
             Timer.stopwatch = Stopwatch.StartNew();
         }
 
-        public static void Stop(string name = null)
+        /// <summary>
+        ///     1 tick == 100ns
+        ///     1ms == 10,000 ticks == 1,000,000ns
+        /// </summary>
+        public static long Stop(string name = null)
         {
-            var ticks = Timer.stopwatch.ElapsedTicks;
-            var ms = Timer.stopwatch.ElapsedMilliseconds;
+            long ticks = Timer.stopwatch.ElapsedTicks;
 
-            if (name != null)
-                Console.Write($"{name} ");
+            double elapsedSeconds = (double)ticks / Stopwatch.Frequency;
 
-            if (ms < 10)
-                Console.WriteLine($"Timer Elapsed: {ticks} ticks");
-            else if (ms < 10000)
-                Console.WriteLine($"Timer Elapsed: {ms}ms");
+            if (elapsedSeconds < 10)
+                Console.WriteLine($"Timer Elapsed: {ticks}ticks  ==  {elapsedSeconds * 1000:F4}ms");
+            else if(elapsedSeconds < 100)
+                Console.WriteLine($"Timer Elapsed: {elapsedSeconds}s");
             else
-                Console.WriteLine($"Timer Elapsed: {ms / 1000}s");
+                Console.WriteLine($"Timer Elapsed: {elapsedSeconds / 60:F2}m");
+
+            return ticks;
         }
     }
 }
