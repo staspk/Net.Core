@@ -28,7 +28,7 @@ namespace Kozubenko.Utils
 
                 string absPath = $"{path}.env";                               // C:\Users\stasp\Desktop\C#\Kozubenko\.env
 
-                if (File.Exists(absPath))
+                if (System.IO.File.Exists(absPath))
                     return absPath;
                 else
                     throw new Exception($".env file not found at {absPath}");

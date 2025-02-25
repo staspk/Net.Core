@@ -7,8 +7,14 @@ namespace Tcp
 
         static void Main(string[] args)
         {
-            var server = new TcpListener("127.0.0.1", 8080);
-            server.Start();
+
+
+
+
+
+
+            //var server = new TcpListener("127.0.0.1", 8080);
+            //server.Start();
         }
 
         //static void Example(string[] args)

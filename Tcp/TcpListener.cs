@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -38,11 +39,15 @@ namespace Tcp
 
                     int magicNum = ((msb << 8) | lsb);
 
-                    if(magicNum == 0xDAAD)
+                    if (magicNum == 0xDAAD)
                     {
                         IPEndPoint endpoint = (IPEndPoint)client.Client.RemoteEndPoint;
                         IPAddress blacklistedIp = endpoint.Address;
 
+                        using (var db = SqliteDb.LockDb())
+                        {
+
+                        }
                     }
 
                 }

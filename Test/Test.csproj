@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sqlite\Sqlite.csproj" />
+    <ProjectReference Include="..\Kozubenko\Kozubenko.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Kozubenko" />
   </ItemGroup>
 
 </Project>

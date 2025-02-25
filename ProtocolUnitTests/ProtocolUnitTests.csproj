@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Kozubenko\Kozubenko.csproj" />
-    <ProjectReference Include="..\Shared.Kozubenko\Kozubenko.csproj" />
   </ItemGroup>
 
   <ItemGroup>
