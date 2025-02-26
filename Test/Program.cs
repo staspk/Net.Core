@@ -5,9 +5,7 @@
         static void Main(string[] args)
         {
 
-            string path = Kozubenko.IO.File.GenerateConfigFile("TestApplication", "data.json");
-
-            Console.WriteLine(path);
+            
         }
     }
 }

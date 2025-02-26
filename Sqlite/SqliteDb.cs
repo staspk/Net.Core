@@ -1,6 +1,4 @@
 ﻿using Kozubenko;
-using Microsoft.Data.Sqlite;
-using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ namespace Sqlite
 {
     public class SqliteDb: IDisposable
     {
-        public static string DbPath { get; set; }
+        public static string DataSource { get; set; }
 
         private static Mutex Mutex = new Mutex();
 
@@ -25,10 +23,10 @@ namespace Sqlite
 
             Mutex.WaitOne();
 
-            if(DbPath is null)
-                throw new Exception("DbPath not set on DbLock");
+            if(DataSource is null)
+                throw new Exception("DataSource is null");
 
-            if (!File.Exists(DbPath))
+            if (!File.Exists(DataSource))
                 CreateDatabaseAndTable();
 
             OpenDatabase();
@@ -50,7 +48,7 @@ namespace Sqlite
 
         private void OpenDatabase()
         {
-            Connection = new SqliteConnection($"Data Source={DbPath};Version=3;");
+            Connection = new SqliteConnection($"Data Source={DataSource}");
             Connection.Open();
         }
 

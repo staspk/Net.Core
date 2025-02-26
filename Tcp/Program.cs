@@ -1,5 +1,6 @@
 ﻿using Sqlite;
 using System.Text;
+using System.Threading;
 
 namespace Tcp
 {
@@ -8,22 +9,36 @@ namespace Tcp
         const string ApplicationName = "StanislavServer";
         const string DbFileName = "stanislav_server.sqlite3";
 
-        static readonly string DbPath = Kozubenko.IO.File.GenerateConfigFilePath(ApplicationName, DbFileName);
+        static readonly string DbPath = Kozubenko.IO.File.GenerateAppDataPath(ApplicationName, DbFileName);
 
         static void Main(string[] args)
         {
-            List<long> ticks = new List<long>();
-            for(int i = 0; i < 100; i++)
+            SqliteDb.DataSource = DbPath;
+
+            Thread th = new Thread(LockDb);
+            th.Start();
+
+            
+
+            using (var db = SqliteDb.LockDb())
             {
-                Kozubenko.Utils.Timer.Start();
-                string applicationName = Kozubenko.IO.File.GenerateConfigFilePath(ApplicationName, Kozubenko.Utils.Random.GenerateRandomString());
-                ticks.Add(Kozubenko.Utils.Timer.Stop());
+                Console.WriteLine("I got a lock (main thread)");
             }
 
-            Console.WriteLine("Average: " + ticks.Average());
+            
+
 
             //var server = new TcpListener("127.0.0.1", 8080);
             //server.Start();
+        }
+
+        static void LockDb()
+        {
+            Thread.Sleep(3200);
+            using (var db = SqliteDb.LockDb())
+            {
+                Console.WriteLine("LockDb got a lock on the thread...");
+            }
         }
 
         //static void Example(string[] args)
